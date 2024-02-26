@@ -2,21 +2,27 @@
   <div class="container">
     <div class="navLinks">
       <a [routerLink]="['/home']">Home</a>
-      <br/>
-      <a  [routerLink]="['/transmitterView']">Transmitter Space</a> <!--*ngIf="authority === 'transmitter'"-->
-      <br/>
-      <a  [routerLink]="['/receiver']">Receiver</a> <!--*ngIf="authority === 'admin'"-->
-      <br/>
-      <a [routerLink]="['/receiverView']">Your information</a> <!--*ngIf="authority === 'receiver'"-->
-      <br/>
-      <a [routerLink]="['/diploma']">Subjects</a> <!--*ngIf="authority === 'admin'"-->
-      <br/>
-      <a [routerLink]="['/transmitters']">Teachers</a> <!--*ngIf="authority === 'admin'"-->
-      <br/>
-      <a [routerLink]="['/stages']">Grades</a> <!--*ngIf="authority === 'admin'"-->
-      <br/>
+      <br />
+      <a [routerLink]="['/transmitterView']">Transmitter Space</a>
+      <!--*ngIf="authority === 'transmitter'"-->
+      <br />
+      <a [routerLink]="['/receiver']">Receiver</a>
+      <!--*ngIf="authority === 'admin'"-->
+      <br />
+      <a [routerLink]="['/receiverView']">Your information</a>
+      <!--*ngIf="authority === 'receiver'"-->
+      <br />
+      <a [routerLink]="['/diploma']">Subjects</a>
+      <!--*ngIf="authority === 'admin'"-->
+      <br />
+      <a [routerLink]="['/transmitters']">Teachers</a>
+      <!--*ngIf="authority === 'admin'"-->
+      <br />
+      <a [routerLink]="['/stages']">Grades</a>
+      <!--*ngIf="authority === 'admin'"-->
+      <br />
       <a [routerLink]="['auth/login']">Log In/Out</a>
-      <br/>
+      <br />
       <a [routerLink]="['/signup']">Sign Up</a>
     </div>
   </div>
@@ -44,4 +50,3 @@
     <router-outlet></router-outlet>
   </div>
 </div>
-

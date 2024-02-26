@@ -1,12 +1,25 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import {UserService} from '../services/user.service';
 
 @Component({
   selector: 'app-user',
-  standalone: true,
-  imports: [],
   templateUrl: './user.component.html',
-  styleUrl: './user.component.css'
+  styleUrls: ['./user.component.css']
 })
-export class UserComponent {
+export class UserComponent implements OnInit {
+  board?: string;
+  errorMessage?: string;
 
+  constructor(private userService: UserService) { }
+
+  ngOnInit() {
+    this.userService.getUserPage().subscribe(
+      data => {
+        this.board = data;
+      },
+      error => {
+        this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
+      }
+    );
+  }
 }
