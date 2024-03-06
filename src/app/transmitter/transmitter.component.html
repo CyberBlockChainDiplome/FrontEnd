@@ -1,1 +1,74 @@
-<p>transmitter works!</p>
+<h2>Transmitters</h2>
+<div class="TransmitterForm">
+  <label>Transmitter firstname:
+    <input #teacherFirstName />
+  </label>
+  <br>
+  <label>Transmitter lastname:
+    <input #teacherLastName />
+  </label>
+  <br>
+  <label>Transmitter email:
+    <input #teacherEmail />
+  </label>
+  <br>
+  <label>Transmitter telephone:
+    <input #teacherTelephone />
+  </label>
+  <br>
+  <label>Transmitter identifier:
+    <input #teacherIdentifier />
+  </label>
+  <br>
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button (click)="add(teacherFirstName.value, teacherLastName.value, teacherEmail.value, teacherTelephone.value, teacherIdentifier.value);
+                  teacherFirstName.value=''; teacherLastName.value=''; teacherEmail.value=''; teacherTelephone.value='';teacherIdentifier.value=''">
+    add
+  </button>
+  <button (click)="addStandBy(teacherFirstName.value, teacherLastName.value, teacherEmail.value, teacherTelephone.value, teacherIdentifier.value);
+                    teacherFirstName.value=''; teacherLastName.value=''; teacherEmail.value=''; teacherTelephone.value=''; teacherIdentifier.value=''">
+    +
+  </button>
+</div>
+<label>Filter by Lastname :
+  <input type="text" [(ngModel)]="filterValue" (keyup)="filterTable()" />
+</label>
+<br><br>
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Email</th>
+    <th>Telephone</th>
+    <th>Identifier</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let teacher of teacherList">
+    <td>{{ teacher.id }}</td>
+    <td>{{ teacher.firstname }}</td>
+    <td>{{ teacher.lastname }}</td>
+    <td>{{ teacher.email }}</td>
+    <td>{{ teacher.telephone }}</td>
+    <td>{{ teacher.identifier }}</td>
+    <td>
+      <button title="delete" (click)="delete(teacher)">Delete</button>
+      <button title="delete" (click)="update(teacherFirstName.value,teacherLastName.value, teacherEmail.value, teacherTelephone.value, teacherIdentifier.value,teacher);
+                                      teacherFirstName.value=''; teacherLastName.value=''; teacherEmail.value=''; teacherTelephone.value=''; teacherIdentifier.value=''">
+        Update
+      </button>
+      <button title="partial update" (click)="partialUpdate(teacher, teacherFirstName.value,teacherLastName.value, teacherEmail.value, teacherTelephone.value, teacherIdentifier.value);
+                                      teacherFirstName.value=''; teacherLastName.value=''; teacherEmail.value=''; teacherTelephone.value=''; teacherIdentifier.value=''"
+      >Partial Update</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<ul>
+  <li *ngFor="let list of listTransmitter" class="sublist">
+    {{ list.join(', ') }}
+  </li>
+</ul>

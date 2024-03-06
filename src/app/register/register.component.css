@@ -1,0 +1,92 @@
+/* Réinitialisation des styles par défaut du navigateur */
+body, header, nav {
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+td {
+  padding: 10px;
+  text-align: left;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+}
+
+input {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  display: block;
+  width: 100%;
+  background-color: #A80000;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #A80000;
+}
+
+.alert {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  color: #721c24;
+  border-radius: 4px;
+}
+
+/* Ajout des modifications pour supprimer les espaces vides */
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
+/* Ajout de la classe personnalisée "input-container" */
+.input-container {
+  border: 1px solid firebrick;
+  border-radius: 4px;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+/* Appliquer les styles à tous les éléments ayant la classe "form-control" à l'intérieur de "input-container" */
+.input-container .form-control {
+  border: none;
+  outline: none;
+  width: 97%;
+}
+
+/* Ajout de la classe "error-message" pour afficher les messages d'erreur */
+.error-message {
+  color: red;
+  font-size: 12px;
+}
+
+

@@ -1,1 +1,80 @@
-<p>transmitter-view works!</p>
+<h2>Teacher Information</h2>
+<table>
+  <tr>
+    <th>Identifier</th>
+    <th>Firstname</th>
+    <th>Lastname</th>
+    <th>Email</th>
+    <th>Telephone</th>
+  </tr>
+  <tr>
+    <td>{{ teacher?.identifier }}</td>
+    <td>{{ teacher?.firstname }}</td>
+    <td>{{ teacher?.lastname }}</td>
+    <td>{{ teacher?.email }}</td>
+    <td>{{ teacher?.telephone }}</td>
+  </tr>
+</table>
+
+<h2>Your Subjects</h2>
+<table>
+  <tr>
+    <th>Subject</th>
+  </tr>
+  <tr *ngFor="let subject of listSubjectsOfTeacher">
+    <td>{{ subject.subjectName }}</td>
+  </tr>
+</table>
+
+<h2>Add Grade</h2>
+<div class = "GradesForm">
+  <label>Grade value :
+    <input type="number" #value />
+  </label>
+  <br>
+  <br>
+  <label>Grade Student:
+    <select #gradeStudentId>
+      <option value="">---</option>
+      <option *ngFor="let student of listStudent" [value]="student.id">{{ student.firstname }} {{ student.lastname }}</option>
+    </select>
+  </label>
+  <br>
+  <br>
+  <label>Grade Subject:
+    <select #gradeSubjectId>
+      <option value="">---</option>
+      <option *ngFor="let subject of listSubjectsOfTeacher" [value]="subject.id">{{ subject.subjectName }}</option>
+    </select>
+    <br>
+  </label>
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button (click)="add(value.value, +gradeStudentId.value, +gradeSubjectId.value );
+                  value.value=''" (click)="resetDropdown(gradeStudentId, gradeSubjectId)">
+    add
+  </button>
+  <br>
+</div>
+<label>Filter by Student Lastname :
+  <input type="text" [(ngModel)]="filterValue" (keyup)="filterTable()" />
+</label>
+<br>
+<h2>Grades</h2>
+<table>
+  <tr>
+    <th>Subject</th>
+    <th>Student Firstname</th>
+    <th>Student Lastname</th>
+    <th>Grade</th>
+    <th>Actions</th>
+  </tr>
+  <tr *ngFor="let grade of listGradesOfSubjectsOfTeacher">
+    <td>{{ grade.subject.subjectName }}</td>
+    <td>{{ grade.student.firstname }}</td>
+    <td>{{ grade.student.lastname }}</td>
+    <td>{{ grade.value }}</td>
+    <td>
+      <button title="delete" (click)="delete(grade)">Delete</button>
+    </td>
+  </tr>
+</table>

@@ -1,1 +1,64 @@
-<p>stage works!</p>
+<h2>Grades</h2>
+<div class = "GradesForm">
+  <label>Grade value :
+    <input type="number" #value />
+  </label>
+  <br>
+  <br>
+  <label>Grade Student:
+    <select #gradeStudentId>
+      <option value="">---</option>
+      <option *ngFor="let student of studentList" [value]="student.id">{{ student.firstname }} {{ student.lastname }}</option>
+    </select>
+  </label>
+  <br>
+  <br>
+  <label>Grade Subject:
+    <select #gradeSubjectId>
+      <option value="">---</option>
+      <option *ngFor="let subject of subjectList" [value]="subject.id">{{ subject.subjectName }}</option>
+    </select>
+    <br>
+  </label>
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button (click)="add(value.value, +gradeStudentId.value, +gradeSubjectId.value );
+                  value.value=''" (click)="resetDropdown(gradeStudentId, gradeSubjectId)">
+    add
+  </button>
+  <br>
+</div>
+<label>Filter by Student Lastname :
+  <input type="text" [(ngModel)]="filterValue" (keyup)="filterTable()" />
+</label>
+<br><br>
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Subject</th>
+    <th>Firstname</th>
+    <th>Lastname</th>
+    <th>Grade value</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let grade of gradeList">
+    <td>{{ grade.id }}</td>
+    <td>{{ grade.subject.subjectName }}</td>
+    <td>{{ grade.student.firstname }}</td>
+    <td>{{ grade.student.lastname }}</td>
+    <td>{{ grade.value }}</td>
+    <td>
+      <button title="delete" (click)="delete(grade)">Delete</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<button title="delete all" (click)="deleteAll()">delete all</button>
+<ul>
+  <li *ngFor="let list of listGrade" class="sublist">
+    {{ list.join(', ') }}
+  </li>
+</ul>
+

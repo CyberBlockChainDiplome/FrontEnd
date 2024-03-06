@@ -1,1 +1,76 @@
-<p>receiver works!</p>
+<h2>Receiver</h2>
+<div class="ReceiverForm">
+  <label>Receiver firstname:
+    <input #receiverFirstName />
+  </label>
+  <br>
+  <label>Receiver lastname:
+    <input #receiverLastName />
+  </label>
+  <br>
+  <label>Receiver email:
+    <input #receiverEmail />
+  </label>
+  <br>
+  <label>Receiver telephone:
+    <input #receiverTelephone />
+  </label>
+  <br>
+  <label>Receiver identifier:
+    <input #receiverIdentifier />
+  </label>
+  <br>
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button (click)="add(receiverFirstName.value, receiverLastName.value, receiverEmail.value, receiverTelephone.value, receiverIdentifier.value);
+                  receiverFirstName.value=''; receiverLastName.value=''; receiverEmail.value=''; receiverTelephone.value='';receiverIdentifier.value=''">
+    add
+  </button>
+  <button (click)="addStandBy(receiverFirstName.value, receiverLastName.value, receiverEmail.value, receiverTelephone.value, receiverIdentifier.value);
+                    receiverFirstName.value=''; receiverLastName.value=''; receiverEmail.value=''; receiverTelephone.value=''; receiverIdentifier.value=''">
+    +
+  </button>
+</div>
+<label>Filter by Lastname :
+  <input type="text" [(ngModel)]="filterValue" (keyup)="filterTable()" />
+</label>
+<br><br>
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>First Name</th>
+    <th>Last Name</th>
+    <th>Email</th>
+    <th>Telephone</th>
+    <th>Identifier</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let receiver of receiverList">
+    <td>{{ receiver.id }}</td>
+    <td>{{ receiver.firstname }}</td>
+    <td>{{ receiver.lastname }}</td>
+    <td>{{ receiver.email }}</td>
+    <td>{{ receiver.telephone }}</td>
+    <td>{{ receiver.identifier }}</td>
+    <td>
+      <button title="delete" (click)="delete(receiver)">Delete</button>
+      <button title="delete" (click)="update(receiverFirstName.value,receiverLastName.value, receiverEmail.value, receiverTelephone.value, receiverIdentifier.value,receiver);
+                                      receiverFirstName.value=''; receiverLastName.value=''; receiverEmail.value=''; receiverTelephone.value=''; receiverIdentifier.value=''">
+        Update
+      </button>
+      <button title="partial update" (click)="partialUpdate(receiver, receiverFirstName.value,receiverLastName.value, receiverEmail.value, receiverTelephone.value, receiverIdentifier.value);
+                                      receiverFirstName.value=''; receiverLastName.value=''; receiverEmail.value=''; receiverTelephone.value=''; receiverIdentifier.value=''">
+        Partial Update</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<ul>
+  <li *ngFor="let list of listReceiver" class="sublist">
+    {{ list.join(', ') }}
+  </li>
+</ul>
+
+

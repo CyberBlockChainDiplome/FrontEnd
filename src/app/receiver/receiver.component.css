@@ -1,0 +1,110 @@
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+}
+
+h2 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.StudentForm {
+  background-color: #fff;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: bold;
+}
+
+input {
+  width: 200px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-left: 10px;
+}
+
+button {
+  background-color: #A80000;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #A80000;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+th {
+  background-color: #A80000;
+  color: #fff;
+  padding: 10px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  background-color: #fff;
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 4px;
+  position: relative;
+}
+
+.badge {
+  background-color: #A80000;
+  color: #fff;
+  padding: 4px 8px;
+  font-size: 12px;
+  border-radius: 4px;
+}
+
+button[title="delete"],
+button[title="update"],
+button[title="partial update"],
+button[title="put all"],
+button[title="delete all"] {
+  background-color: #ddd;
+  color: #333;
+  padding: 4px 8px;
+  border: none;
+  margin-left: 10px;
+  font-size: 12px;
+  border-radius: 4px;
+}
+
+button[title="delete"]:hover,
+button[title="update"]:hover,
+button[title="partial update"]:hover,
+button[title="put all"]:hover,
+button[title="delete all"]:hover {
+  background-color: #ccc;
+}
+
+.sublist {
+  background-color: #eee;
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 4px;
+}

@@ -1,1 +1,58 @@
-<p>diploma works!</p>
+<h2>Diplomas</h2>
+<div class = "DiplomaForm">
+  <label>Diploma Name :
+    <input #diplomaName />
+  </label>
+  <br>
+  <label>Diploma Transmitter:
+    <select #diplomaTransmitterId>
+      <option value="">---</option>
+      <option *ngFor="let transmitter of transmitterList" [value]="transmitter.id">{{ transmitter.id }} {{ transmitter.firstname }} {{ transmitter.lastname }}</option>
+    </select>
+  </label>
+  <br>
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button (click)="add(diplomaName.value, +diplomaTransmitterId.value) ;
+                  diplomaName.value='' " (click)="resetDropdown(diplomaTransmitterId)">
+    add
+  </button>
+</div>
+<label>Filter by Diploma Name :
+  <input type="text" [(ngModel)]="filterValue" (keyup)="filterTable()" />
+</label>
+<br><br>
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Transmitter Firstname</th>
+    <th>Transmitter Lastname</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let diploma of diplomaList">
+    <td>{{ diploma.id }}</td>
+    <td>{{ diploma.diplomaName }}</td>
+    <td>{{ diploma.transmitter.firstname }}</td>
+    <td>{{ diploma.transmitter.lastname }}</td>
+    <td>
+      <button title="delete" (click)="delete(diploma)">Delete</button>
+      <button title="update" (click)="update(diplomaName.value,+diplomaTransmitterId.value, diploma);
+                                      diplomaName.value=''" (click)="resetDropdown(diplomaTransmitterId)">
+        Update
+      </button>
+      <button title="partial update" (click)="partialUpdate(diploma, diplomaName.value, +diplomaTransmitterId.value);
+                                      diplomaName.value=''" (click)="resetDropdown(diplomaTransmitterId)">
+        Partial Update</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<button title="delete all" (click)="deleteAll()">delete all</button>
+<ul>
+  <li *ngFor="let list of listDiploma" class="sublist">
+    {{ list.join(', ') }}
+  </li>
+</ul>

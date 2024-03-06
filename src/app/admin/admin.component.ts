@@ -1,12 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import {UserService} from '../services/user.service';
 
 @Component({
   selector: 'app-admin',
-  standalone: true,
-  imports: [],
   templateUrl: './admin.component.html',
-  styleUrl: './admin.component.css'
+  styleUrls: ['./admin.component.css']
 })
-export class AdminComponent {
+export class AdminComponent implements OnInit {
+  board?: string;
+  errorMessage?: string;
+
+  constructor(private userService: UserService) { }
+
+  ngOnInit() {
+    this.userService.getAdminPage().subscribe(
+      data => {
+        this.board = data;
+      },
+      error => {
+        this.errorMessage = `${error.status}: ${JSON.parse(error.error).message}`;
+      }
+    );
+  }
 
 }

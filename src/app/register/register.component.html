@@ -1,1 +1,58 @@
-<p>register works!</p>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Signup Form</title>
+</head>
+<body>
+<div class="container">
+  <div *ngIf="isSignedUp; else signupForm">
+    Your registration is successful. Please login!
+  </div>
+
+  <ng-template #signupForm>
+    <div class="row col-sm-6" style="max-width:350px;">
+      <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+        <h1>Please enter your information</h1>
+        <div class="form-group input-container">
+          <label for="username" id="username">Username</label>
+          <input type="text" class="form-control" name="username" [(ngModel)]="form.username" #username="ngModel" required />
+          <div *ngIf="f.submitted && username.invalid" class="error-message">
+            <div *ngIf="['username.errors?.required']">Username is required</div>
+          </div>
+        </div>
+        <div class="form-group input-container">
+          <label for="firstname" id="firstname">Firstname</label>
+          <input type="text" class="form-control" name="firstname" [(ngModel)]="form.firstname" #firstname="ngModel" required/>
+        </div>
+        <div class="form-group input-container">
+          <label for="lastname" id="lastname">Lastname</label>
+          <input type="text" class="form-control" name="lastname" [(ngModel)]="form.lastname" #lastname="ngModel" required/>
+        </div>
+        <div class="form-group input-container">
+          <label for="email" id="email">Email address</label>
+          <input type="text" class="form-control" name="email" [(ngModel)]="form.email" #email="ngModel" required/>
+        </div>
+        <div class="form-group input-container">
+          <label for="telephone" id="telephone">Telephone</label>
+          <input type="text" class="form-control" name="telephone" [(ngModel)]="form.telephone" #telephone="ngModel" required/>
+        </div>
+        <div class="form-group input-container">
+          <label for="password" id="password">Password</label>
+          <input type="password" class="form-control" name="password" [(ngModel)]="form.password" #password="ngModel" required minlength="6" />
+          <div *ngIf="f.submitted && password.invalid" class="error-message">
+            <div *ngIf="['password.errors?.required']">Password is required</div>
+            <div *ngIf="['password.errors?.minlength']">Password must be at least 6 characters</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary">Register</button>
+          <div *ngIf="f.submitted && isSignUpFailed" class="alert alert-warning">
+            Signup failed!<br/>{{errorMessage}}
+          </div>
+        </div>
+      </form>
+    </div>
+  </ng-template>
+</div>
+</body>
+</html>
