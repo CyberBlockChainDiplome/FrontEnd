@@ -1,4 +1,4 @@
-import {Subject} from "../subjects/subjects.model";
+import {Diploma} from "../diploma/diploma.model";
 
 export class Transmitter {
   id?: number;

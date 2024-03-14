@@ -1,33 +1,33 @@
-<h2>Grades</h2>
-<div class = "GradesForm">
-  <label>Grade value :
+<h2>Stage</h2>
+<div class = "StageForm">
+  <label>Stage value :
     <input type="number" #value />
   </label>
   <br>
   <br>
-  <label>Grade Student:
-    <select #gradeStudentId>
+  <label>Stage Receiver:
+    <select #gradeReceiverId>
       <option value="">---</option>
-      <option *ngFor="let student of studentList" [value]="student.id">{{ student.firstname }} {{ student.lastname }}</option>
+      <option *ngFor="let receiver of receiverList" [value]="receiver.id">{{ receiver.firstname }} {{ receiver.lastname }}</option>
     </select>
   </label>
   <br>
   <br>
-  <label>Grade Subject:
-    <select #gradeSubjectId>
+  <label>Stage Diploma:
+    <select #gradeDiplomaId>
       <option value="">---</option>
-      <option *ngFor="let subject of subjectList" [value]="subject.id">{{ subject.subjectName }}</option>
+      <option *ngFor="let diploma of diplomaList" [value]="diploma.id">{{ diploma.diplomaName }}</option>
     </select>
     <br>
   </label>
   <!-- (click) passes input value to add() and then clears the input -->
-  <button (click)="add(value.value, +gradeStudentId.value, +gradeSubjectId.value );
-                  value.value=''" (click)="resetDropdown(gradeStudentId, gradeSubjectId)">
+  <button (click)="add(value.value, +gradeReceiverId.value, +gradeDiplomaId.value );
+                  value.value=''" (click)="resetDropdown(gradeReceiverId, gradeDiplomaId)">
     add
   </button>
   <br>
 </div>
-<label>Filter by Student Lastname :
+<label>Filter by Receiver Lastname :
   <input type="text" [(ngModel)]="filterValue" (keyup)="filterTable()" />
 </label>
 <br><br>
@@ -35,19 +35,19 @@
   <thead>
   <tr>
     <th>ID</th>
-    <th>Subject</th>
+    <th>Diploma</th>
     <th>Firstname</th>
     <th>Lastname</th>
-    <th>Grade value</th>
+    <th>Stage value</th>
     <th>Actions</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let grade of gradeList">
     <td>{{ grade.id }}</td>
-    <td>{{ grade.subject.subjectName }}</td>
-    <td>{{ grade.student.firstname }}</td>
-    <td>{{ grade.student.lastname }}</td>
+    <td>{{ grade.diploma.diplomaName }}</td>
+    <td>{{ grade.receiver.firstname }}</td>
+    <td>{{ grade.receiver.lastname }}</td>
     <td>{{ grade.value }}</td>
     <td>
       <button title="delete" (click)="delete(grade)">Delete</button>
@@ -57,7 +57,7 @@
 </table>
 <button title="delete all" (click)="deleteAll()">delete all</button>
 <ul>
-  <li *ngFor="let list of listGrade" class="sublist">
+  <li *ngFor="let list of listStage" class="sublist">
     {{ list.join(', ') }}
   </li>
 </ul>
