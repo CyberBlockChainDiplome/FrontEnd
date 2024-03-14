@@ -1,0 +1,58 @@
+<h2>Subjects</h2>
+<div class = "SubjectForm">
+  <label>Subject Name :
+    <input #subjectName />
+  </label>
+  <br>
+  <label>Subject Teacher:
+    <select #subjectTeacherId>
+      <option value="">---</option>
+      <option *ngFor="let teacher of teacherList" [value]="teacher.id">{{ teacher.id }} {{ teacher.firstname }} {{ teacher.lastname }}</option>
+    </select>
+  </label>
+  <br>
+  <!-- (click) passes input value to add() and then clears the input -->
+  <button (click)="add(subjectName.value, +subjectTeacherId.value) ;
+                  subjectName.value='' " (click)="resetDropdown(subjectTeacherId)">
+    add
+  </button>
+</div>
+<label>Filter by Subject Name :
+  <input type="text" [(ngModel)]="filterValue" (keyup)="filterTable()" />
+</label>
+<br><br>
+<table>
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Teacher Firstname</th>
+    <th>Teacher Lastname</th>
+    <th>Actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let subject of subjectList">
+    <td>{{ subject.id }}</td>
+    <td>{{ subject.subjectName }}</td>
+    <td>{{ subject.teacher.firstname }}</td>
+    <td>{{ subject.teacher.lastname }}</td>
+    <td>
+      <button title="delete" (click)="delete(subject)">Delete</button>
+      <button title="update" (click)="update(subjectName.value,+subjectTeacherId.value, subject);
+                                      subjectName.value=''" (click)="resetDropdown(subjectTeacherId)">
+        Update
+      </button>
+      <button title="partial update" (click)="partialUpdate(subject, subjectName.value, +subjectTeacherId.value);
+                                      subjectName.value=''" (click)="resetDropdown(subjectTeacherId)">
+        Partial Update</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+<button title="delete all" (click)="deleteAll()">delete all</button>
+<ul>
+  <li *ngFor="let list of listSubject" class="sublist">
+    {{ list.join(', ') }}
+  </li>
+</ul>

@@ -1,5 +1,5 @@
 <div class="container">
-  <h2 class="section-title">Student Information</h2>
+  <h2 class="section-title">Receiver Information</h2>
   <table class="info-table">
     <tr>
       <th>Identifier</th>
@@ -9,35 +9,35 @@
       <th>Telephone</th>
     </tr>
     <tr>
-      <td>{{ student?.identifier }}</td>
-      <td>{{ student?.firstname }}</td>
-      <td>{{ student?.lastname }}</td>
-      <td>{{ student?.email }}</td>
-      <td>{{ student?.telephone }}</td>
+      <td>{{ receiver?.identifier }}</td>
+      <td>{{ receiver?.firstname }}</td>
+      <td>{{ receiver?.lastname }}</td>
+      <td>{{ receiver?.email }}</td>
+      <td>{{ receiver?.telephone }}</td>
     </tr>
   </table>
 
-  <h2 class="section-subjects">Your Graded Subjects</h2>
+  <h2 class="section-subjects">Your Staged Diploma</h2>
   <div class="subjects-list">
     <ul>
       <li *ngFor="let subject of listSubject">
-        <button class="subject-button" (click)="showGradesBySubject(subject)">
+        <button class="subject-button" (click)="showStageBySubject(subject)">
           {{ subject.subjectName }}
         </button>
       </li>
     </ul>
   </div>
 
-  <div class="grades-details" *ngIf="selectedGrades.length > 0">
-    <h2 class="section-grade">Grades</h2>
+  <div class="grades-details" *ngIf="selectedStage.length > 0">
+    <h2 class="section-grade">Stage</h2>
     <table class="grades-table">
       <tr>
-        <th>Grade</th>
-        <th>Teacher</th>
+        <th>Stage</th>
+        <th>Transmitter</th>
       </tr>
-      <tr *ngFor="let grade of selectedGrades">
+      <tr *ngFor="let grade of selectedStage">
         <td>{{ grade.value }}</td>
-        <td>{{ grade.subject.teacher.lastname }}</td>
+        <td>{{ grade.subject.transmitter.lastname }}</td>
       </tr>
     </table>
   </div>

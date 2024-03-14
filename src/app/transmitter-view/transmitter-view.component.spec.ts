@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TeacherViewComponent } from './teacher-view.component';
+import { TransmitterViewComponent } from './transmitter-view.component';
 
-describe('TeacherViewComponent', () => {
-  let component: TeacherViewComponent;
-  let fixture: ComponentFixture<TeacherViewComponent>;
+describe('TransmitterViewComponent', () => {
+  let component: TransmitterViewComponent;
+  let fixture: ComponentFixture<TransmitterViewComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TeacherViewComponent ]
+      declarations: [ TransmitterViewComponent ]
     })
       .compileComponents();
 
-    fixture = TestBed.createComponent(TeacherViewComponent);
+    fixture = TestBed.createComponent(TransmitterViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

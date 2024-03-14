@@ -1,17 +1,17 @@
-import {Transmitter} from "../transmitter/transmitter.model";
-import {Receiver} from "../receiver/receiver.model";
-import {Diploma} from "../diploma/diploma.model";
+import {Transmitter} from "../transmitters/transmitter.model";
+import {Receiver} from "../receivers/receiver.model";
+import {Subject} from "../subjects/subjects.model";
 
 export class Stage {
   id?: number;
   value: number;
   receiver: Receiver;
-  diploma: Diploma;
+  subject: Subject;
 
-  constructor(value: number, receiver: Receiver, diploma: Diploma) {
+  constructor(value: number, receiver: Receiver, subject: Subject) {
     this.value = value;
     this.receiver = receiver;
-    this.diploma = diploma;
+    this.subject = subject;
   }
 
 }

@@ -1,6 +1,6 @@
-import { Diploma } from './diploma.model';
+import { Subject } from './subjects.model';
 
-describe('Receiver', () => {
+describe('Student', () => {
   it('should create an instance', () => {
     // @ts-ignore
     expect(new Subject()).toBeTruthy();

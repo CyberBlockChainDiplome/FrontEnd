@@ -9,10 +9,10 @@ import {SignupInfo} from "../auth/signup-info";
 
 @Component({
   selector: 'app-receiver',
-  templateUrl: './receiver.component.html',
-  styleUrls: ['./receiver.component.css']
+  templateUrl: './receivers.component.html',
+  styleUrls: ['./receivers.component.css']
 })
-export class ReceiverComponent implements OnInit {
+export class ReceiversComponent implements OnInit {
   receiverList?: Receiver[];
   receiver?: Receiver;
   values: string[] = [];

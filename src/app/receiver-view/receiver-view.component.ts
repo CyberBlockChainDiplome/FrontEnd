@@ -1,37 +1,37 @@
 import { Component, OnInit } from '@angular/core';
-import { GradeService } from '../grades/grades.service';
-import { StudentService } from '../students/student.service';
+import { StageService } from '../stages/stage.service';
+import { ReceiverService } from '../receivers/receiver.service';
 import { SubjectService } from '../subjects/subjects.service';
 import { TokenStorageService } from '../auth/token-storage.service';
-import { Student } from '../students/student.model';
-import { Grade } from '../grades/grades.model';
+import { Receiver } from '../receivers/receiver.model';
+import { Stage } from '../stages/stage.model';
 import { Subject } from '../subjects/subjects.model';
 
 @Component({
-  selector: 'app-student-view',
-  templateUrl: './student-view.component.html',
-  styleUrls: ['./student-view.component.css']
+  selector: 'app-receiver-view',
+  templateUrl: './receiver-view.component.html',
+  styleUrls: ['./receiver-view.component.css']
 })
-export class StudentViewComponent implements OnInit {
-  student?: Student;
-  listGrades: Grade[] = [];
-  listGradesOfStudent: Grade[] = [];
-  listStudent: Student[] = [];
+export class ReceiverViewComponent implements OnInit {
+  receiver?: Receiver;
+  listStage: Stage[] = [];
+  listStageOfReceiver: Stage[] = [];
+  listReceiver: Receiver[] = [];
   listSubject: Subject[] = [];
   username?: string;
-  selectedGrades: Grade[] = [];
-  selectedGradeIndex: number = -1;
+  selectedStage: Stage[] = [];
+  selectedStageIndex: number = -1;
 
   constructor(
-    private gradeService: GradeService,
-    private studentService: StudentService,
+    private stageService: StageService,
+    private receiverService: ReceiverService,
     private subjectService: SubjectService,
     private tokenStorage: TokenStorageService
   ) {}
 
 
-  showGradesBySubject(subject: Subject): void {
-    this.selectedGrades = this.listGradesOfStudent.filter(grade => grade.subject.id === subject.id);
+  showStageBySubject(subject: Subject): void {
+    this.selectedStage = this.listStageOfReceiver.filter(stage => stage.subject.id === subject.id);
   }
 
 
@@ -40,43 +40,43 @@ export class StudentViewComponent implements OnInit {
   ngOnInit(): void {
     this.username = this.tokenStorage.getUsername();
     console.log('Voici le username : ' + this.username);
-    this.getStudents();
+    this.getReceivers();
   }
 
-  getStudents(): void {
-    this.studentService.getStudents().subscribe(studentList => {
-      this.listStudent = studentList;
-      console.log(this.listStudent.length);
+  getReceivers(): void {
+    this.receiverService.getReceivers().subscribe(receiverList => {
+      this.listReceiver = receiverList;
+      console.log(this.listReceiver.length);
       // @ts-ignore
-      this.getStudent(this.username);
-      console.log('ID Student : ' + this.student?.id);
-      this.getGrades();
+      this.getReceiver(this.username);
+      console.log('ID Receiver : ' + this.receiver?.id);
+      this.getStages();
     });
   }
 
-  getStudent(username: string) {
-    for (const student of this.listStudent) {
-      if (student.identifier === username) {
-        this.student = student;
+  getReceiver(username: string) {
+    for (const receiver of this.listReceiver) {
+      if (receiver.identifier === username) {
+        this.receiver = receiver;
         break;
       }
     }
   }
 
-  getGrades() {
-    this.gradeService.getGrades().subscribe(gradeList => {
-      this.listGrades = gradeList;
-      console.log(this.listGrades.length);
-      this.getGradesOfStudent(this.student?.id);
+  getStages() {
+    this.stageService.getStages().subscribe(stageList => {
+      this.listStages = stageList;
+      console.log(this.listStage.length);
+      this.getStagesOfReceiver(this.receiver?.id);
     });
   }
 
-  getGradesOfStudent(studentId: number | undefined) {
+  getStagesOfReceiver(receiverId: number | undefined) {
     const uniqueSubjects: Subject[] = [];
 
-    for (const grade of this.listGrades) {
-      if (grade.student.id === studentId) {
-        const subject = grade.subject;
+    for (const stage of this.listStage) {
+      if (stage.receiver.id === receiverId) {
+        const subject = stage.subject;
 
         if (!uniqueSubjects.some(s => s.id === subject.id)) {
           uniqueSubjects.push(subject);
@@ -84,7 +84,7 @@ export class StudentViewComponent implements OnInit {
       }
     }
 
-    this.listGradesOfStudent = this.listGrades.filter(grade => grade.student.id === studentId);
+    this.listStagesOfReceiver = this.listStages.filter(stage => stage.receiver.id === receiverId);
     this.listSubject = uniqueSubjects;
   }
 

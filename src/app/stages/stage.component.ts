@@ -2,66 +2,66 @@ import { Component, OnInit } from '@angular/core';
 import {Stage} from "./stage.model";
 import {StageService} from "./stage.service";
 import {switchMap} from "rxjs";
-import {Diploma} from "../diploma/diploma.model";
-import {Receiver} from "../receiver/receiver.model";
-import {ReceiverService} from "../receiver/receiver.service";
-import {DiplomaService} from "../diploma/diploma.service";
-import {Transmitter} from "../transmitter/transmitter.model";
+import {Subject} from "../subjects/subjects.model";
+import {Receiver} from "../receivers/receiver.model";
+import {ReceiverService} from "../receivers/receiver.service";
+import {SubjectService} from "../subjects/subjects.service";
+import {Transmitter} from "../transmitters/transmitter.model";
 
 @Component({
-  selector: 'app-stage',
-  templateUrl: './stage.component.html',
-  styleUrls: ['./stage.component.css']
+  selector: 'app-stages',
+  templateUrl: './stages.component.html',
+  styleUrls: ['./stages.component.css']
 })
-export class StageComponent implements OnInit {
+export class StagesComponent implements OnInit {
   stageList?: Stage[];
   receiverList: Receiver[] = [];
-  diplomaList: Diploma[] = [];
+  subjectList: Subject[] = [];
   values: string[] = [];
   listStage: string[][] = [];
   numberStageInList: number = 0;
   originalReceiverList: Receiver[] = [];
   filterValue: string = '';
-  constructor(private stageService: StageService, private receiverService: ReceiverService, private diplomaService: DiplomaService) { }
+  constructor(private stageService: StageService, private receiverService: ReceiverService, private subjectService: SubjectService) { }
 
   ngOnInit() {
-    this.getStage();
-    this.getReceiver();
-    this.getDiploma();
+    this.getStages();
+    this.getReceivers();
+    this.getSubjects();
   }
 
-  getStage(): void {
-    this.stageService.getStage()
+  getStages(): void {
+    this.stageService.getStages()
       .subscribe(stageList => this.stageList = stageList);
   }
-  getReceiver(): void {
-    this.receiverService.getReceiver()
+  getReceivers(): void {
+    this.receiverService.getReceivers()
       .subscribe(receiverList => {
         this.receiverList = receiverList,
           this.originalReceiverList = receiverList
       });
   }
-  getDiploma(): void {
-    this.diplomaService.getDiploma()
-      .subscribe(diplomaList => this.diplomaList = diplomaList);
+  getSubjects(): void {
+    this.subjectService.getSubjects()
+      .subscribe(subjectList => this.subjectList = subjectList);
   }
 
-  add(value: string, receiverId: number, diplomaId: number): void {
+  add(value: string, receiverId: number, subjectId: number): void {
     console.log('Stage value:', value);
     console.log('Stage Receiver Id:', receiverId);
-    console.log('Stage Diploma Id:', diplomaId);
-    if( value == null || receiverId == null || diplomaId == null){
+    console.log('Stage Subject Id:', subjectId);
+    if( value == null || receiverId == null || subjectId == null){
       return;
     }
     const stage: Stage = {
       value: parseFloat(value),
       receiver: { id: receiverId } as Receiver,
-      diploma: { id: diplomaId } as Diploma,
+      subject: { id: subjectId } as Subject,
     };
 
     this.stageService.addStage(stage)
       .pipe(
-        switchMap(() => this.stageService.getStage()) // Récupérer la liste des sujets mise à jour
+        switchMap(() => this.stageService.getStages()) // Récupérer la liste des sujets mise à jour
       )
       .subscribe({
         next: (stageList: Stage[]) => {
@@ -76,7 +76,7 @@ export class StageComponent implements OnInit {
   delete(stage: Stage): void {
     this.stageList = this.stageList?.filter(c => c !== stage);
     this.stageService.deleteStage(stage).subscribe(() => {
-        // for automatic update of number of stage in parent component
+        // for automatic update of number of stages in parent component
         if(this.stageList != undefined) {
           this.stageService.totalItems.next(this.stageList.length);
           console.log(this.stageList.length);
@@ -86,7 +86,7 @@ export class StageComponent implements OnInit {
   }
 
   deleteAll(): void {
-    this.stageService.deleteStage().subscribe(() => {
+    this.stageService.deleteStages().subscribe(() => {
         if(this.stageList != undefined) {
           this.stageList.length = 0;
         }
@@ -104,7 +104,7 @@ export class StageComponent implements OnInit {
   }
 
   putAll(listStage: string[][]): void {
-    this.stageService.deleteStage().subscribe(() => {
+    this.stageService.deleteStages().subscribe(() => {
         if (this.stageList != undefined) {
           this.stageList.length = 0;
         }
@@ -117,8 +117,8 @@ export class StageComponent implements OnInit {
         .subscribe({
           next: (stage: Stage) => {
             this.stageList?.push(stage);
-            this.stageService.getStage().subscribe(stage => {
-              this.stageList = stage;
+            this.stageService.getStages().subscribe(stages => {
+              this.stageList = stages;
               this.stageService.totalItems.next(this.stageList.length);
             });
           },
@@ -142,7 +142,7 @@ export class StageComponent implements OnInit {
       this.receiverList = this.originalReceiverList;
 
       // Restaurer la liste complète des notes
-      this.getStage();
+      this.getStages();
     } else {
       // Filtrer les étudiants en fonction du nom de famille
       this.receiverList = this.originalReceiverList.filter((receiver) =>
@@ -166,10 +166,10 @@ export class StageComponent implements OnInit {
         console.log(updates.value);
       }
       this.stageService.partialUpdateStage(updates, id).pipe(
-        switchMap(() => this.stageService.getStage()) // update the diploma list after partial update
+        switchMap(() => this.stageService.getStages()) // update the subjects list after partial update
       ).subscribe({
-        next: (stage: Stage[]) => {
-          this.stageList = stage;
+        next: (stages: Stage[]) => {
+          this.stageList = stages;
         },
         error: () => {
         },

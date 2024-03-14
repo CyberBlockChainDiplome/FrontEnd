@@ -1,5 +1,5 @@
-import {Transmitter} from "../transmitter/transmitter.model";
-import {Receiver} from "../receiver/receiver.model";
+import {Transmitter} from "../transmitters/transmitter.model";
+import {Receiver} from "../receivers/receiver.model";
 import {Diploma} from "../diploma/diploma.model";
 
 export class User {

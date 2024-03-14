@@ -4,7 +4,7 @@ import {Diploma} from "../diploma/diploma.model";
 import {TransmitterService} from "./transmitter.service";
 import {switchMap} from "rxjs";
 import {DiplomaService} from "../diploma/diploma.service";
-import {Receiver} from "../receiver/receiver.model";
+import {Receiver} from "../receivers/receiver.model";
 import {AuthService} from "../auth/auth.service";
 import {User} from "../user/user.model";
 import {SignupInfo} from "../auth/signup-info";
