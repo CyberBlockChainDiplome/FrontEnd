@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Transmitter} from "./transmitter.model";
-import {Diploma} from "../diploma/diploma.model";
+import {Subject} from "../subjects/subjects.model";
 import {TransmitterService} from "./transmitter.service";
 import {switchMap} from "rxjs";
-import {DiplomaService} from "../diploma/diploma.service";
+import {SubjectService} from "../subjects/subjects.service";
 import {Receiver} from "../receivers/receiver.model";
 import {AuthService} from "../auth/auth.service";
 import {User} from "../user/user.model";
