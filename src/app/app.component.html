@@ -3,23 +3,17 @@
     <div class="navLinks">
       <a [routerLink]="['/home']">Home</a>
       <br />
-      <a [routerLink]="['/transmitterView']">Transmitter Space</a>
-      <!--*ngIf="authority === 'transmitter'"-->
+      <a *ngIf="authority === 'transmitter'" [routerLink]="['/transmitterView']">Transmitter Space</a>
       <br />
-      <a [routerLink]="['/receiver']">Receiver</a>
-      <!--*ngIf="authority === 'admin'"-->
+      <a *ngIf="authority === 'admin'" [routerLink]="['/receiver']">Receiver</a>
       <br />
-      <a [routerLink]="['/receiverView']">Your information</a>
-      <!--*ngIf="authority === 'receiver'"-->
+      <a *ngIf="authority === 'receiver'" [routerLink]="['/receiverView']">Your information</a>
       <br />
-      <a [routerLink]="['/diploma']">Subjects</a>
-      <!--*ngIf="authority === 'admin'"-->
+      <a *ngIf="authority === 'admin'" [routerLink]="['/subject']">Subjects</a>
       <br />
-      <a [routerLink]="['/transmitters']">Teachers</a>
-      <!--*ngIf="authority === 'admin'"-->
+      <a *ngIf="authority === 'admin'" [routerLink]="['/transmitter']">Transmitters</a>
       <br />
-      <a [routerLink]="['/stages']">Grades</a>
-      <!--*ngIf="authority === 'admin'"-->
+      <a *ngIf="authority === 'admin'" [routerLink]="['/stage']">Stages</a>
       <br />
       <a [routerLink]="['auth/login']">Log In/Out</a>
       <br />

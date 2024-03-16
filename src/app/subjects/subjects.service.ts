@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {BehaviorSubject, catchError, Observable, of, tap} from "rxjs";
 import {Subject} from "./subjects.model";
-import {Student} from "../students/student.model";
+import {Receiver} from "../receivers/receiver.model";
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })

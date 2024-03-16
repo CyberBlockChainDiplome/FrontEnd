@@ -2,8 +2,8 @@ import {Component, NgModule, OnInit} from '@angular/core';
 import {Subject} from "./subjects.model";
 import {SubjectService} from "./subjects.service";
 import {mergeMap, switchMap} from "rxjs";
-import {TeacherService} from "../teachers/teacher.service";
-import {Teacher} from "../teachers/teacher.model";
+import {TransmitterService} from "../transmitters/transmitter.service";
+import {Transmitter} from "../transmitters/transmitter.model";
 
 
 @Component({
@@ -14,22 +14,22 @@ import {Teacher} from "../teachers/teacher.model";
 
 export class SubjectsComponent implements OnInit {
   subjectList?: Subject[];
-  teacherList: Teacher[] = [];
+  transmitterList: Transmitter[] = [];
   values: string[] = [];
   listSubject: string[][] = [];
   numberSubjectInList: number = 0;
-  selectedTeacherId!: number;
-  tempTeacher?: Teacher;
+  selectedTransmitterId!: number;
+  tempTransmitter?: Transmitter;
   originalSubjectList: Subject[] = [];
   filterValue: string = '';
 
-  constructor(private subjectService: SubjectService, private teacherService: TeacherService) {
+  constructor(private subjectService: SubjectService, private transmitterService: TransmitterService) {
 
   }
 
   ngOnInit() {
     this.getSubjects();
-    this.getTeachers();
+    this.getTransmitters();
   }
 
   getSubjects(): void {
@@ -39,21 +39,21 @@ export class SubjectsComponent implements OnInit {
         this.originalSubjectList = subjectList;
       });
   }
-  getTeachers(): void {
-    this.teacherService.getTeachers()
-      .subscribe(teacherList => this.teacherList = teacherList);
+  getTransmitters(): void {
+    this.transmitterService.getTransmitters()
+      .subscribe(transmitterList => this.transmitterList = transmitterList);
   }
 
 
-  add(subjectName: string, teacherId: number): void {
-    if(subjectName == '' || teacherId == null ){
+  add(subjectName: string, transmitterId: number): void {
+    if(subjectName == '' || transmitterId == null ){
       return;
     }
     console.log('Subject Name:', subjectName);
-    console.log('Subject Teacher Id:', teacherId);
+    console.log('Subject Transmitter Id:', transmitterId);
     const subject: Subject = {
       subjectName: subjectName.trim(),
-      teacher: { id: teacherId } as Teacher,
+      transmitter: { id: transmitterId } as Transmitter,
     };
 
     this.subjectService.addSubject(subject)
@@ -108,24 +108,24 @@ export class SubjectsComponent implements OnInit {
     );
   }
 
-  update(subjectName: string, teacherId: number, chosenToUpdateSubject: Subject): void {
+  update(subjectName: string, transmitterId: number, chosenToUpdateSubject: Subject): void {
     const id = chosenToUpdateSubject.id;
     subjectName = subjectName.trim();
     console.log(id);
-    console.log(teacherId);
+    console.log(transmitterId);
     if (id !== undefined) {
-      for (const teacher of this.teacherList) {
-        if (teacher.id === teacherId) {
-          this.tempTeacher = teacher;
+      for (const transmitter of this.transmitterList) {
+        if (transmitter.id === transmitterId) {
+          this.tempTransmitter = transmitter;
           break;
         }
       }
-      if (this.tempTeacher !== undefined) {
-        // Créer le nouvel objet Subject avec le subjectName et le teacher
+      if (this.tempTransmitter !== undefined) {
+        // Créer le nouvel objet Subject avec le subjectName et le transmitter
         const updatedSubject: Subject = {
           id: chosenToUpdateSubject.id,
           subjectName: subjectName,
-          teacher: this.tempTeacher,
+          transmitter: this.tempTransmitter,
         };
         // Effectuer l'opération de mise à jour avec le nouvel objet Subject
         this.subjectService.updateSubject(updatedSubject, id)
@@ -136,7 +136,7 @@ export class SubjectsComponent implements OnInit {
             }
           });
       } else {
-        console.log('Teacher non trouvé pour l\'ID donné');
+        console.log('Transmitter non trouvé pour l\'ID donné');
       }
     }
   }
@@ -176,16 +176,16 @@ export class SubjectsComponent implements OnInit {
     }
     this.listSubject = [];
   }
-  partialUpdate(chosenToUpdateSubject: Subject, newName?: string, newTeacherId?: number): void {
+  partialUpdate(chosenToUpdateSubject: Subject, newName?: string, newTransmitterId?: number): void {
     const id = chosenToUpdateSubject.id;
     if (id !== undefined) {
       const updates: Partial<Subject> = {id: id};
       if (newName) {
         updates.subjectName = newName.trim();
       }
-      if (newTeacherId) {
-        const teacher = { id: newTeacherId } as Teacher;
-        updates.teacher = teacher;
+      if (newTransmitterId) {
+        const transmitter = { id: newTransmitterId } as Transmitter;
+        updates.transmitter = transmitter;
       }
       this.subjectService.partialUpdateSubject(updates, id).pipe(
         switchMap(() => this.subjectService.getSubjects()) // update the subjects list after partial update
@@ -203,8 +203,8 @@ export class SubjectsComponent implements OnInit {
   }
 
 
-  setSelectedTeacher(event: any){
-    this.selectedTeacherId = event.target.value;
+  setSelectedTransmitter(event: any){
+    this.selectedTransmitterId = event.target.value;
   }
   deleteList() {
     this.listSubject = [];

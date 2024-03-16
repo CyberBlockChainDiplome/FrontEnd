@@ -1,13 +1,13 @@
-import {Teacher} from "../teachers/teacher.model";
+import {Transmitter} from "../transmitters/transmitter.model";
 
 export class Subject {
   id?: number;
   subjectName: string;
-  teacher: Teacher;
+  transmitter: Transmitter;
 
-  constructor(subjectName: string, teacher: Teacher) {
+  constructor(subjectName: string, transmitter: Transmitter) {
     this.subjectName = subjectName;
-    this.teacher = teacher;
+    this.transmitter = transmitter;
   }
 
 }

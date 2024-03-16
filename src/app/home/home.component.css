@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+h2 {
+  text-align: center;
+}
+.center-image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh; /* Ajustez la hauteur selon vos besoins */
+}
+
+.center-image img {
+  max-width: 100%;
+  max-height: 100%;
+}

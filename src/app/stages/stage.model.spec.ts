@@ -1,4 +1,4 @@
-import { Diploma } from './stage.model';
+import { Stage } from './stage.model';
 
 describe('Receiver', () => {
   it('should create an instance', () => {

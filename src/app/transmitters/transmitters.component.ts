@@ -10,11 +10,11 @@ import {User} from "../user/user.model";
 import {SignupInfo} from "../auth/signup-info";
 
 @Component({
-  selector: 'app-transmitter',
-  templateUrl: './transmitter.component.html',
-  styleUrls: ['./transmitter.component.css']
+  selector: 'app-transmitters',
+  templateUrl: './transmitters.component.html',
+  styleUrls: ['./transmitters.component.css']
 })
-export class TransmitterComponent implements OnInit {
+export class TransmittersComponent implements OnInit {
   transmitterList?: Transmitter[];
   values: string[] = [];
   listTransmitter: string[][] = [];
@@ -33,11 +33,11 @@ export class TransmitterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getTransmitter();
+    this.getTransmitters();
     this.getUsers();
   }
-  getTransmitter(): void {
-    this.transmitterService.getTransmitter()
+  getTransmitters(): void {
+    this.transmitterService.getTransmitters()
       .subscribe(transmitterList => {
         this.transmitterList = transmitterList;
         this.originalTransmitterList = transmitterList;
@@ -105,7 +105,7 @@ export class TransmitterComponent implements OnInit {
         console.log(data);
         this.isSignedUp = true;
         this.isSignUpFailed = false;
-        this.getTransmitter();
+        this.getTransmitters();
       },
       error => {
         console.log(error);
@@ -133,7 +133,7 @@ export class TransmitterComponent implements OnInit {
     if(check){
       this.transmitterList = this.transmitterList?.filter(c => c !== transmitter);
       this.transmitterService.deleteTransmitter(transmitter).subscribe(() => {
-          // for automatic update of number of transmitter in parent component
+          // for automatic update of number of transmitters in parent component
           if(this.transmitterList != undefined) {
             this.transmitterService.totalItems.next(this.transmitterList.length);
             console.log(this.transmitterList.length);
@@ -144,7 +144,7 @@ export class TransmitterComponent implements OnInit {
   }
 
   deleteAll(): void {
-    this.transmitterService.deleteTransmitter().subscribe(() => {
+    this.transmitterService.deleteTransmitters().subscribe(() => {
         if(this.transmitterList != undefined) {
           this.transmitterList.length = 0;
         }
@@ -193,7 +193,7 @@ export class TransmitterComponent implements OnInit {
   }
 
   putAll(listTransmitter: string[][]): void {
-    this.transmitterService.deleteTransmitter().subscribe(() => {
+    this.transmitterService.deleteTransmitters().subscribe(() => {
         if (this.transmitterList != undefined) {
           this.transmitterList.length = 0;
         }
@@ -220,8 +220,8 @@ export class TransmitterComponent implements OnInit {
         .subscribe({
           next: (transmitter: Transmitter) => {
             this.transmitterList?.push(transmitter);
-            this.transmitterService.getTransmitter().subscribe(transmitter => {
-              this.transmitterList = transmitter;
+            this.transmitterService.getTransmitters().subscribe(transmitters => {
+              this.transmitterList = transmitters;
               this.transmitterService.totalItems.next(this.transmitterList.length);
             });
           },
@@ -251,10 +251,10 @@ export class TransmitterComponent implements OnInit {
         updates.identifier = identifier.trim();
       }
       this.transmitterService.partialUpdateTransmitter(updates, id).pipe(
-        switchMap(() => this.transmitterService.getTransmitter()) // update the transmitter list after partial update
+        switchMap(() => this.transmitterService.getTransmitters()) // update the transmitters list after partial update
       ).subscribe({
-        next: (transmitter: Transmitter[]) => {
-          this.transmitterList = transmitter;
+        next: (transmitters: Transmitter[]) => {
+          this.transmitterList = transmitters;
         },
         error: () => {
         },

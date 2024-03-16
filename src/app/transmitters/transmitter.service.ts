@@ -13,23 +13,23 @@ const httpOptions = {
 })
 export class TransmitterService {
 
-  private transmitterUrl = 'http://localhost:8080/transmitter';
+  private transmittersUrl = 'http://localhost:8080/transmitters';
 
   constructor(private http: HttpClient) { }
 
-  /** GET transmitter from the server */
+  /** GET transmitters from the server */
   getTransmitters(): Observable<Transmitter[]> {
-    return this.http.get<Transmitter[]>(this.transmitterUrl);
+    return this.http.get<Transmitter[]>(this.transmittersUrl);
   }
   partialUpdateTransmitter(transmitter: Partial<Transmitter>, id:number):Observable<Transmitter> {
-    return this.http.patch<Transmitter>(`${this.transmitterUrl}/${id}`,transmitter,httpOptions).pipe(
+    return this.http.patch<Transmitter>(`${this.transmittersUrl}/${id}`,transmitter,httpOptions).pipe(
       tap((transmitterPartialUpdated: Transmitter) => this.log(`partial update transmitter id=${transmitterPartialUpdated.id}`)),
       catchError(this.handleError<any>('partialUpdateTransmitter'))
     )
   }
   /** GET transmitter by id. Will 404 if id not found */
   getTransmitter(id: number): Observable<Transmitter> {
-    const url = `${this.transmitterUrl}/${id}`;
+    const url = `${this.transmittersUrl}/${id}`;
     return this.http.get<Transmitter>(url).pipe(
       tap(_ => this.log(`fetched transmitter id=${id}`)),
       catchError(this.handleError<Transmitter>(`getTransmitter id=${id}`))
@@ -38,7 +38,7 @@ export class TransmitterService {
 
   /** POST: add a new transmitter to the server */
   addTransmitter(transmitter: Transmitter): Observable<Transmitter> {
-    return this.http.post<Transmitter>(this.transmitterUrl, transmitter, httpOptions).pipe(
+    return this.http.post<Transmitter>(this.transmittersUrl, transmitter, httpOptions).pipe(
       tap((transmitterAdded: Transmitter) => this.log(`added transmitter id=${transmitterAdded.id}`)),
       catchError(this.handleError<Transmitter>('addTransmitter'))
     );
@@ -47,34 +47,34 @@ export class TransmitterService {
   /** DELETE: delete the transmitter from the server */
   deleteTransmitter(transmitter: Transmitter | number): Observable<Transmitter> {
     const id = typeof transmitter === 'number' ? transmitter : transmitter.id;
-    const url = `${this.transmitterUrl}/${id}`;
+    const url = `${this.transmittersUrl}/${id}`;
     return this.http.delete<Transmitter>(url, httpOptions).pipe(
       tap(_ => this.log(`deleted transmitter id=${id}`)),
       catchError(this.handleError<Transmitter>('deleteTransmitter'))
     );
   }
 
-  /** DELETE: delete all the transmitter from the server */
+  /** DELETE: delete all the transmitters from the server */
   deleteTransmitters(): Observable<Transmitter> {
-    return this.http.delete<Transmitter>(this.transmitterUrl, httpOptions).pipe(
-      tap(_ => this.log(`deleted transmitter`)),
-      catchError(this.handleError<Transmitter>('deleteTransmitter'))
+    return this.http.delete<Transmitter>(this.transmittersUrl, httpOptions).pipe(
+      tap(_ => this.log(`deleted transmitters`)),
+      catchError(this.handleError<Transmitter>('deleteTransmitters'))
     );
   }
 
   /** PUT: update the transmitter on the server */
   updateTransmitter(transmitter: Transmitter, id:number): Observable<Transmitter> {
-    return this.http.put<Transmitter>(`${this.transmitterUrl}/${id}`, transmitter, httpOptions).pipe(
+    return this.http.put<Transmitter>(`${this.transmittersUrl}/${id}`, transmitter, httpOptions).pipe(
       // tap(_ => this.log(`updated transmitter id=${transmitter.id}`)), // same as the line below
       tap((transmitterUpdated: Transmitter) => this.log(`updated transmitter id=${transmitterUpdated.id}`)),
       catchError(this.handleError<any>('updateTransmitter'))
     );
   }
 
-  /** PUT: update all the transmitter on the server */
-  updateTransmitters(transmitter: Transmitter[]): Observable<Transmitter[]> {
-    return this.http.put<Transmitter[]>(this.transmitterUrl, transmitter, httpOptions).pipe(
-      tap(_ => this.log(`updated transmitter id=${transmitter}`)),
+  /** PUT: update all the transmitters on the server */
+  updateTransmitters(transmitters: Transmitter[]): Observable<Transmitter[]> {
+    return this.http.put<Transmitter[]>(this.transmittersUrl, transmitters, httpOptions).pipe(
+      tap(_ => this.log(`updated transmitter id=${transmitters}`)),
       catchError(this.handleError<any>('updateTransmitter'))
     );
   }
@@ -104,13 +104,13 @@ export class TransmitterService {
     console.log('TransmitterService: ' + message);
   }
 
-  /** GET number of transmitter from the server */
-  getTransmitterCounter(): Observable<number> {
-    const url = `${this.transmitterUrl}/counter`;
+  /** GET number of transmitters from the server */
+  getTransmittersCounter(): Observable<number> {
+    const url = `${this.transmittersUrl}/counter`;
     return this.http.get<number>(url);
   }
 
-  // for automatic update of number of transmitter in parent component
+  // for automatic update of number of transmitters in parent component
   public totalItems: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   getCartItems() {
     return this.totalItems.asObservable();

@@ -14,20 +14,20 @@ import {httpInterceptorProviders} from "./auth/auth-interceptor";
 import {RoleGuard} from "./guards/role.guard";
 import {authGuard} from "./guards/auth.guard";
 import { SubjectsComponent } from './subjects/subjects.component';
-import { TransmitterComponent } from './transmitters/transmitter.component';
-import { StageComponent } from './stages/stage.component';
+import { TransmittersComponent } from './transmitters/transmitters.component';
+import { StagesComponent } from './stages/stage.component';
 import { ReceiverViewComponent } from './receiver-view/receiver-view.component';
 import { HomeComponent } from './home/home.component';
 import { TransmitterViewComponent } from './transmitter-view/transmitter-view.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
-  { path: 'transmitterView', component: TransmitterViewComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_TEACHER'] }, },
-  { path: 'receiverView', component: ReceiverViewComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_STUDENT'] }, },
+  { path: 'transmitterView', component: TransmitterViewComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_TRANSMITTER'] }, },
+  { path: 'receiverView', component: ReceiverViewComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_RECEIVER'] }, },
   { path: 'subject', component: SubjectsComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN'] }, },
   { path: 'receiver', component: ReceiversComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN'] }, },
-  { path: 'transmitter', component: TransmitterComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN'] }, },
-  { path: 'stage', component: StageComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN'] }, },
+  { path: 'transmitter', component: TransmittersComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN'] }, },
+  { path: 'stage', component: StagesComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_ADMIN'] }, },
   { path: 'user', component: UserComponent, canActivate: [RoleGuard], data: { roles: ['ROLE_RECEIVER','ROLE_ADMIN', 'ROLE_TRANSMITTER'] },},
   { path: 'auth/login', component: LoginComponent },
   { path: 'signup', component: RegisterComponent },
@@ -42,8 +42,8 @@ const routes: Routes = [
     UserComponent,
     AdminComponent,
     SubjectsComponent,
-    TransmitterComponent,
-    StageComponent,
+    TransmittersComponent,
+    StagesComponent,
     ReceiverViewComponent,
     HomeComponent,
     TransmitterViewComponent,

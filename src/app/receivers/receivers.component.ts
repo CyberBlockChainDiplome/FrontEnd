@@ -28,9 +28,9 @@ export class ReceiversComponent implements OnInit {
 
   constructor(private receiverService: ReceiverService, private authService: AuthService) { }
 
-  ngOnInit() { this.getReceiver();   }
-  getReceiver(): void {
-    this.receiverService.getReceiver()
+  ngOnInit() { this.getReceivers();   }
+  getReceivers(): void {
+    this.receiverService.getReceivers()
       .subscribe(receiverList => {
         this.receiverList = receiverList;
         this.originalReceiverList = receiverList;
@@ -98,7 +98,7 @@ export class ReceiversComponent implements OnInit {
         console.log(data);
         this.isSignedUp = true;
         this.isSignUpFailed = false;
-        this.getReceiver();
+        this.getReceivers();
       },
       error => {
         console.log(error);
@@ -139,7 +139,7 @@ export class ReceiversComponent implements OnInit {
   }
 
   deleteAll(): void {
-    this.receiverService.deleteReceiver().subscribe(() => {
+    this.receiverService.deleteReceivers().subscribe(() => {
         if(this.receiverList != undefined) {
           this.receiverList.length = 0;
         }
@@ -188,7 +188,7 @@ export class ReceiversComponent implements OnInit {
   }
 
   putAll(listReceiver: string[][]): void {
-    this.receiverService.deleteReceiver().subscribe(() => {
+    this.receiverService.deleteReceivers().subscribe(() => {
         if (this.receiverList != undefined) {
           this.receiverList.length = 0;
         }
@@ -215,7 +215,7 @@ export class ReceiversComponent implements OnInit {
         .subscribe({
           next: (receiver: Receiver) => {
             this.receiverList?.push(receiver);
-            this.receiverService.getReceiver().subscribe(receiver => {
+            this.receiverService.getReceivers().subscribe(receiver => {
               this.receiverList = receiver;
               this.receiverService.totalItems.next(this.receiverList.length);
             });
@@ -246,7 +246,7 @@ export class ReceiversComponent implements OnInit {
         updates.identifier = identifier.trim();
       }
       this.receiverService.partialUpdateReceiver(updates, id).pipe(
-        switchMap(() => this.receiverService.getReceiver()) // update the receiver list after partial update
+        switchMap(() => this.receiverService.getReceivers()) // update the receiver list after partial update
       ).subscribe({
         next: (receiver: Receiver[]) => {
           this.receiverList = receiver;

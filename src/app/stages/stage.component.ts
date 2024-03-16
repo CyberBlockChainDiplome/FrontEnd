@@ -10,8 +10,8 @@ import {Transmitter} from "../transmitters/transmitter.model";
 
 @Component({
   selector: 'app-stages',
-  templateUrl: './stages.component.html',
-  styleUrls: ['./stages.component.css']
+  templateUrl: './stage.component.html',
+  styleUrls: ['./stage.component.css']
 })
 export class StagesComponent implements OnInit {
   stageList?: Stage[];

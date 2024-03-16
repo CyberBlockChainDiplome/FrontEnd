@@ -4,16 +4,16 @@
     <input #subjectName />
   </label>
   <br>
-  <label>Subject Teacher:
-    <select #subjectTeacherId>
+  <label>Subject Transmitter:
+    <select #subjectTransmitterId>
       <option value="">---</option>
-      <option *ngFor="let teacher of teacherList" [value]="teacher.id">{{ teacher.id }} {{ teacher.firstname }} {{ teacher.lastname }}</option>
+      <option *ngFor="let transmitter of transmitterList" [value]="transmitter.id">{{ transmitter.id }} {{ transmitter.firstname }} {{ transmitter.lastname }}</option>
     </select>
   </label>
   <br>
   <!-- (click) passes input value to add() and then clears the input -->
-  <button (click)="add(subjectName.value, +subjectTeacherId.value) ;
-                  subjectName.value='' " (click)="resetDropdown(subjectTeacherId)">
+  <button (click)="add(subjectName.value, +subjectTransmitterId.value) ;
+                  subjectName.value='' " (click)="resetDropdown(subjectTransmitterId)">
     add
   </button>
 </div>
@@ -26,8 +26,8 @@
   <tr>
     <th>ID</th>
     <th>Name</th>
-    <th>Teacher Firstname</th>
-    <th>Teacher Lastname</th>
+    <th>Transmitter Firstname</th>
+    <th>Transmitter Lastname</th>
     <th>Actions</th>
   </tr>
   </thead>
@@ -35,16 +35,16 @@
   <tr *ngFor="let subject of subjectList">
     <td>{{ subject.id }}</td>
     <td>{{ subject.subjectName }}</td>
-    <td>{{ subject.teacher.firstname }}</td>
-    <td>{{ subject.teacher.lastname }}</td>
+    <td>{{ subject.transmitter.firstname }}</td>
+    <td>{{ subject.transmitter.lastname }}</td>
     <td>
       <button title="delete" (click)="delete(subject)">Delete</button>
-      <button title="update" (click)="update(subjectName.value,+subjectTeacherId.value, subject);
-                                      subjectName.value=''" (click)="resetDropdown(subjectTeacherId)">
+      <button title="update" (click)="update(subjectName.value,+subjectTransmitterId.value, subject);
+                                      subjectName.value=''" (click)="resetDropdown(subjectTransmitterId)">
         Update
       </button>
-      <button title="partial update" (click)="partialUpdate(subject, subjectName.value, +subjectTeacherId.value);
-                                      subjectName.value=''" (click)="resetDropdown(subjectTeacherId)">
+      <button title="partial update" (click)="partialUpdate(subject, subjectName.value, +subjectTransmitterId.value);
+                                      subjectName.value=''" (click)="resetDropdown(subjectTransmitterId)">
         Partial Update</button>
     </td>
   </tr>

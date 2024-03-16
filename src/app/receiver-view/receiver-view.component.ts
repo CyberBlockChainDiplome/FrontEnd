@@ -14,8 +14,8 @@ import { Subject } from '../subjects/subjects.model';
 })
 export class ReceiverViewComponent implements OnInit {
   receiver?: Receiver;
-  listStage: Stage[] = [];
-  listStageOfReceiver: Stage[] = [];
+  listStages: Stage[] = [];
+  listStagesOfReceiver: Stage[] = [];
   listReceiver: Receiver[] = [];
   listSubject: Subject[] = [];
   username?: string;
@@ -31,7 +31,7 @@ export class ReceiverViewComponent implements OnInit {
 
 
   showStageBySubject(subject: Subject): void {
-    this.selectedStage = this.listStageOfReceiver.filter(stage => stage.subject.id === subject.id);
+    this.selectedStage = this.listStagesOfReceiver.filter(stage => stage.subject.id === subject.id);
   }
 
 
@@ -66,7 +66,7 @@ export class ReceiverViewComponent implements OnInit {
   getStages() {
     this.stageService.getStages().subscribe(stageList => {
       this.listStages = stageList;
-      console.log(this.listStage.length);
+      console.log(this.listStages.length);
       this.getStagesOfReceiver(this.receiver?.id);
     });
   }
@@ -74,7 +74,7 @@ export class ReceiverViewComponent implements OnInit {
   getStagesOfReceiver(receiverId: number | undefined) {
     const uniqueSubjects: Subject[] = [];
 
-    for (const stage of this.listStage) {
+    for (const stage of this.listStages) {
       if (stage.receiver.id === receiverId) {
         const subject = stage.subject;
 

@@ -21,7 +21,7 @@
   <tr>
     <th>Diploma</th>
   </tr>
-  <tr *ngFor="let subject of listDiplomaOfTransmitter">
+  <tr *ngFor="let subject of listSubjectsOfTransmitter">
     <td>{{ subject.subjectName }}</td>
   </tr>
 </table>
@@ -44,7 +44,7 @@
   <label>Stage Diploma:
     <select #stageDiplomaId>
       <option value="">---</option>
-      <option *ngFor="let subject of listDiplomaOfTransmitter" [value]="subject.id">{{ subject.subjectName }}</option>
+      <option *ngFor="let subject of listSubjectsOfTransmitter" [value]="subject.id">{{ subject.subjectName }}</option>
     </select>
     <br>
   </label>
@@ -68,7 +68,7 @@
     <th>Stage</th>
     <th>Actions</th>
   </tr>
-  <tr *ngFor="let stage of listStageOfDiplomaOfTransmitter">
+  <tr *ngFor="let stage of listStagesOfSubjectOfTransmitter">
     <td>{{ stage.subject.subjectName }}</td>
     <td>{{ stage.receiver.firstname }}</td>
     <td>{{ stage.receiver.lastname }}</td>

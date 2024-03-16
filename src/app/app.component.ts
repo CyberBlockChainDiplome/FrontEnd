@@ -24,14 +24,14 @@ export class AppComponent {
           console.log("ADMIN");
           return false;
         }
-        if (role === 'ROLE_STUDENT') {
-          this.authority = 'student';
-          console.log("STUDENT");
+        if (role === 'ROLE_RECEIVER') {
+          this.authority = 'receiver';
+          console.log("RECEIVER");
           return false;
         }
-        if (role === 'ROLE_TEACHER') {
-          this.authority = 'teacher';
-          console.log("TEACHER");
+        if (role === 'ROLE_TRANSMITTER') {
+          this.authority = 'transmitter';
+          console.log("TRANSMITTER");
           return false;
         }
         return true;

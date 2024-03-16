@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { StageService } from '../stages/stage.service';
 import { ReceiverService } from '../receivers/receiver.service';
-import { DiplomaService } from '../diploma/diploma.service';
+import { SubjectService } from '../subjects/subjects.service';
 import { TokenStorageService } from '../auth/token-storage.service';
 import { Receiver } from '../receivers/receiver.model';
 import { Stage } from '../stages/stage.model';
-import { Diploma } from '../diploma/diploma.model';
+import { Subject } from '../subjects/subjects.model';
 import { TransmitterService } from '../transmitters/transmitter.service';
 import { Transmitter } from '../transmitters/transmitter.model';
 import {switchMap} from "rxjs";
@@ -18,12 +18,12 @@ import {UserService} from "../services/user.service";
 })
 export class TransmitterViewComponent implements OnInit {
   transmitter?: Transmitter;
-  listStage: Stage[] = [];
-  listStageOfDiplomaOfTransmitter: Stage[] = [];
-  listDiplomaOfTransmitter: Diploma[] = [];
+  listStages: Stage[] = [];
+  listStagesOfSubjectOfTransmitter: Stage[] = [];
+  listSubjectsOfTransmitter: Subject[] = [];
   listReceiver: Receiver[] = [];
   listTransmitter: Transmitter[] = [];
-  listDiploma: Diploma[] = [];
+  listSubject: Subject[] = [];
   username?: string;
   filterValue: string = '';
 
@@ -33,24 +33,24 @@ export class TransmitterViewComponent implements OnInit {
     private stageService: StageService,
     private receiverService: ReceiverService,
     private transmitterService: TransmitterService,
-    private diplomaService: DiplomaService,
+    private subjectService: SubjectService,
     private tokenStorage: TokenStorageService
   ) {}
 
   ngOnInit(): void {
     this.username = this.tokenStorage.getUsername();
     console.log('Voici le username : ' + this.username);
-    this.getTransmitter();
+    this.getTransmitters();
   }
   getReceiver(): void {
-    this.receiverService.getReceiver().subscribe(receiverList => {
+    this.receiverService.getReceivers().subscribe(receiverList => {
       this.listReceiver = receiverList;
       this.originalReceiverList = receiverList;
       this.getStage();
     });
   }
-  getTransmitter(): void {
-    this.transmitterService.getTransmitter().subscribe(transmitterList => {
+  getTransmitters(): void {
+    this.transmitterService.getTransmitters().subscribe(transmitterList => {
       this.listTransmitter = transmitterList;
       // @ts-ignore
       this.getTransmitter(this.username);
@@ -68,62 +68,62 @@ export class TransmitterViewComponent implements OnInit {
   }
 
   getStage() {
-    this.listStageOfDiplomaOfTransmitter = [];
-    this.listStage = [];
-    this.stageService.getStage().subscribe(stageList => {
-      this.listStage = stageList;
-      this.getDiploma();
+    this.listStagesOfSubjectOfTransmitter = [];
+    this.listStages = [];
+    this.stageService.getStages().subscribe(stageList => {
+      this.listStages = stageList;
+      this.getSubject();
     });
   }
 
-  private getDiploma() {
-    this.listDiplomaOfTransmitter = [];
-    this.listDiploma = [];
-    this.diplomaService.getDiploma().subscribe(diplomaList => {
-      this.listDiploma = diplomaList;
-      this.getDiplomaOfTransmitter(this.transmitter?.id);
+  private getSubject() {
+    this.listSubjectsOfTransmitter = [];
+    this.listSubject = [];
+    this.subjectService.getSubjects().subscribe(subjectList => {
+      this.listSubject = subjectList;
+      this.getSubjectOfTransmitter(this.transmitter?.id);
     });
   }
 
-  private getDiplomaOfTransmitter(transmitterId: number | undefined) {
-    for (const diploma of this.listDiploma) {
-      if (diploma.transmitter.id === transmitterId) {
-        this.listDiplomaOfTransmitter.push(diploma);
+  private getSubjectOfTransmitter(transmitterId: number | undefined) {
+    for (const subject of this.listSubject) {
+      if (subject.transmitter.id === transmitterId) {
+        this.listSubjectsOfTransmitter.push(subject);
       }
     }
-    this.getStageOfDiplomaOfTransmitter(this.transmitter?.id);
+    this.getStageOfSubjectOfTransmitter(this.transmitter?.id);
   }
-  getStageOfDiplomaOfTransmitter(transmitterId: number | undefined){
-    for (const stage of this.listStage) {
-      if (stage.diploma.transmitter.id === transmitterId) {
-        this.listStageOfDiplomaOfTransmitter.push(stage);
+  getStageOfSubjectOfTransmitter(transmitterId: number | undefined){
+    for (const stage of this.listStages) {
+      if (stage.subject.transmitter.id === transmitterId) {
+        this.listStagesOfSubjectOfTransmitter.push(stage);
       }
     }
   }
   delete(stage: Stage): void {
-    this.listStage = this.listStage?.filter(c => c !== stage);
+    this.listStages = this.listStages?.filter(c => c !== stage);
     this.stageService.deleteStage(stage).subscribe(() => {
         // for automatic update of number of stage in parent component
-        if(this.listStage != undefined) {
-          this.stageService.totalItems.next(this.listStage.length);
-          console.log(this.listStage.length);
+        if(this.listStages != undefined) {
+          this.stageService.totalItems.next(this.listStages.length);
+          console.log(this.listStages.length);
         }
       }
     );
-    const index = this.listStageOfDiplomaOfTransmitter.findIndex(g => g.id === stage.id);
+    const index = this.listStagesOfSubjectOfTransmitter.findIndex(g => g.id === stage.id);
     if (index !== -1) {
-      this.listStageOfDiplomaOfTransmitter.splice(index, 1);
+      this.listStagesOfSubjectOfTransmitter.splice(index, 1);
     }
   }
 
-  add(value: string, receiverId: number, diplomaId: number): void {
+  add(value: string, receiverId: number, subjectId: number): void {
     console.log('Stage value:', value);
     console.log('Stage Receiver Id:', receiverId);
-    console.log('Stage Diploma Id:', diplomaId);
+    console.log('Stage Subject Id:', subjectId);
     const stage: Stage = {
       value: parseFloat(value),
       receiver: { id: receiverId } as Receiver,
-      diploma: { id: diplomaId } as Diploma,
+      subject: { id: subjectId } as Subject,
     };
 
     this.stageService.addStage(stage).subscribe(() => {
@@ -156,9 +156,9 @@ export class TransmitterViewComponent implements OnInit {
       );
 
       // Filtrer les notes en fonction du nom de famille de l'étudiant et des sujets de l'enseignant
-      this.listStageOfDiplomaOfTransmitter = this.listStage.filter((stage) =>
+      this.listStagesOfSubjectOfTransmitter = this.listStages.filter((stage) =>
         stage.receiver.lastname.toLowerCase().includes(filter) &&
-        this.listDiplomaOfTransmitter.some(diploma => diploma.id === stage.diploma.id)
+        this.listSubjectsOfTransmitter.some(subject => subject.id === stage.subject.id)
       );
     }
   }

@@ -6,7 +6,7 @@
   <br>
   <br>
   <label>Stage Receiver:
-    <select #gradeReceiverId>
+    <select #stageReceiverId>
       <option value="">---</option>
       <option *ngFor="let receiver of receiverList" [value]="receiver.id">{{ receiver.firstname }} {{ receiver.lastname }}</option>
     </select>
@@ -14,15 +14,15 @@
   <br>
   <br>
   <label>Stage Diploma:
-    <select #gradeDiplomaId>
+    <select #stageDiplomaId>
       <option value="">---</option>
-      <option *ngFor="let diploma of diplomaList" [value]="diploma.id">{{ diploma.diplomaName }}</option>
+      <option *ngFor="let subject of subjectList" [value]="subject.id">{{ subject.subjectName }}</option>
     </select>
     <br>
   </label>
   <!-- (click) passes input value to add() and then clears the input -->
-  <button (click)="add(value.value, +gradeReceiverId.value, +gradeDiplomaId.value );
-                  value.value=''" (click)="resetDropdown(gradeReceiverId, gradeDiplomaId)">
+  <button (click)="add(value.value, +stageReceiverId.value, +stageDiplomaId.value );
+                  value.value=''" (click)="resetDropdown(stageReceiverId, stageDiplomaId)">
     add
   </button>
   <br>
@@ -43,14 +43,14 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let grade of gradeList">
-    <td>{{ grade.id }}</td>
-    <td>{{ grade.diploma.diplomaName }}</td>
-    <td>{{ grade.receiver.firstname }}</td>
-    <td>{{ grade.receiver.lastname }}</td>
-    <td>{{ grade.value }}</td>
+  <tr *ngFor="let stage of stageList">
+    <td>{{ stage.id }}</td>
+    <td>{{ stage.subject.subjectName }}</td>
+    <td>{{ stage.receiver.firstname }}</td>
+    <td>{{ stage.receiver.lastname }}</td>
+    <td>{{ stage.value }}</td>
     <td>
-      <button title="delete" (click)="delete(grade)">Delete</button>
+      <button title="delete" (click)="delete(stage)">Delete</button>
     </td>
   </tr>
   </tbody>
