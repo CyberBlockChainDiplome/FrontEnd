@@ -16,10 +16,10 @@
   </tr>
 </table>
 
-<h2>Your Diploma</h2>
+<h2>Your Subject</h2>
 <table>
   <tr>
-    <th>Diploma</th>
+    <th>Subject</th>
   </tr>
   <tr *ngFor="let subject of listSubjectsOfTransmitter">
     <td>{{ subject.subjectName }}</td>
@@ -41,16 +41,16 @@
   </label>
   <br>
   <br>
-  <label>Stage Diploma:
-    <select #stageDiplomaId>
+  <label>Stage Subject:
+    <select #stageSubjectId>
       <option value="">---</option>
       <option *ngFor="let subject of listSubjectsOfTransmitter" [value]="subject.id">{{ subject.subjectName }}</option>
     </select>
     <br>
   </label>
   <!-- (click) passes input value to add() and then clears the input -->
-  <button (click)="add(value.value, +stageReceiverId.value, +stageDiplomaId.value );
-                  value.value=''" (click)="resetDropdown(stageReceiverId, stageDiplomaId)">
+  <button (click)="add(value.value, +stageReceiverId.value, +stageSubjectId.value );
+                  value.value=''" (click)="resetDropdown(stageReceiverId, stageSubjectId)">
     add
   </button>
   <br>
@@ -62,7 +62,7 @@
 <h2>Stage</h2>
 <table>
   <tr>
-    <th>Diploma</th>
+    <th>Subject</th>
     <th>Receiver Firstname</th>
     <th>Receiver Lastname</th>
     <th>Stage</th>

@@ -12,24 +12,24 @@ const httpOptions = {
 })
 export class StageService {
 
-  private stageUrl = 'http://localhost:8080/stage';
+  private stagesUrl = 'http://localhost:8080/stages';
 
   constructor(private http: HttpClient) { }
 
-  /** GET stage from the server */
+  /** GET stages from the server */
   getStages(): Observable<Stage[]> {
-    return this.http.get<Stage[]>(this.stageUrl);
+    return this.http.get<Stage[]>(this.stagesUrl);
   }
 
   partialUpdateStage(stage: Partial<Stage>, id:number):Observable<Stage> {
-    return this.http.patch<Stage>(`${this.stageUrl}/${id}`,stage,httpOptions).pipe(
+    return this.http.patch<Stage>(`${this.stagesUrl}/${id}`,stage,httpOptions).pipe(
       tap((stagePartialUpdated: Stage) => this.log(`partial update stage id=${stagePartialUpdated.id}`)),
       catchError(this.handleError<any>('partialUpdateStage'))
     )
   }
   /** GET stage by id. Will 404 if id not found */
   getStage(id: number): Observable<Stage> {
-    const url = `${this.stageUrl}/${id}`;
+    const url = `${this.stagesUrl}/${id}`;
     return this.http.get<Stage>(url).pipe(
       tap(_ => this.log(`fetched stage id=${id}`)),
       catchError(this.handleError<Stage>(`getStage id=${id}`))
@@ -38,7 +38,7 @@ export class StageService {
 
   /** POST: add a new stage to the server */
   addStage(stage: Stage): Observable<Stage> {
-    return this.http.post<Stage>(this.stageUrl, stage, httpOptions).pipe(
+    return this.http.post<Stage>(this.stagesUrl, stage, httpOptions).pipe(
       tap((stageAdded: Stage) => this.log(`added stage id=${stageAdded.id}`)),
       catchError(this.handleError<Stage>('addStage'))
     );
@@ -47,34 +47,34 @@ export class StageService {
   /** DELETE: delete the stage from the server */
   deleteStage(stage: Stage | number): Observable<Stage> {
     const id = typeof stage === 'number' ? stage : stage.id;
-    const url = `${this.stageUrl}/${id}`;
+    const url = `${this.stagesUrl}/${id}`;
     return this.http.delete<Stage>(url, httpOptions).pipe(
       tap(_ => this.log(`deleted stage id=${id}`)),
       catchError(this.handleError<Stage>('deleteStage'))
     );
   }
 
-  /** DELETE: delete all the stage from the server */
+  /** DELETE: delete all the stages from the server */
   deleteStages(): Observable<Stage> {
-    return this.http.delete<Stage>(this.stageUrl, httpOptions).pipe(
-      tap(_ => this.log(`deleted stage`)),
+    return this.http.delete<Stage>(this.stagesUrl, httpOptions).pipe(
+      tap(_ => this.log(`deleted stages`)),
       catchError(this.handleError<Stage>('deleteStages'))
     );
   }
 
   /** PUT: update the stage on the server */
   updateStage(stage: Stage, id:number): Observable<Stage> {
-    return this.http.put<Stage>(`${this.stageUrl}/${id}`, stage, httpOptions).pipe(
+    return this.http.put<Stage>(`${this.stagesUrl}/${id}`, stage, httpOptions).pipe(
       // tap(_ => this.log(`updated stage id=${stage.id}`)), // same as the line below
       tap((stageUpdated: Stage) => this.log(`updated stage id=${stageUpdated.id}`)),
       catchError(this.handleError<any>('updateStage'))
     );
   }
 
-  /** PUT: update all the stage on the server */
-  updateStages(stage: Stage[]): Observable<Stage[]> {
-    return this.http.put<Stage[]>(this.stageUrl, stage, httpOptions).pipe(
-      tap(_ => this.log(`updated stage id=${stage}`)),
+  /** PUT: update all the stages on the server */
+  updateStages(stages: Stage[]): Observable<Stage[]> {
+    return this.http.put<Stage[]>(this.stagesUrl, stages, httpOptions).pipe(
+      tap(_ => this.log(`updated stage id=${stages}`)),
       catchError(this.handleError<any>('updateStage'))
     );
   }
@@ -104,13 +104,13 @@ export class StageService {
     console.log('StageService: ' + message);
   }
 
-  /** GET number of stage from the server */
+  /** GET number of stages from the server */
   getStagesCounter(): Observable<number> {
-    const url = `${this.stageUrl}/counter`;
+    const url = `${this.stagesUrl}/counter`;
     return this.http.get<number>(url);
   }
 
-  // for automatic update of number of stage in parent component
+  // for automatic update of number of stages in parent component
   public totalItems: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   getCartItems() {
     return this.totalItems.asObservable();
